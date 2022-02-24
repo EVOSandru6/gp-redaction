@@ -73,3 +73,13 @@ sudo reboot;
 ```
 make restart
 ```
+
+## 3. cp .env.example to .env
+```
+cp .env.example .env
+```
+
+## 4. test
+```
+make test
+```

@@ -61,6 +61,8 @@ migrations-generate: # создать новую пустую
 
 SHELL := /bin/bash
 
+test: tests
+
 test-prepare:
 	docker-compose restart postgres-test
 	docker-compose run --rm php-cli bin/console doctrine:database:drop --env=test --force || true
@@ -72,8 +74,6 @@ tests: export APP_ENV=test
 tests: test-prepare
 	docker-compose run --rm php-cli php bin/phpunit $@
 .PHONY: tests
-
-test: tests
 
 test-single-class: export APP_ENV=test
 test-single-class: test-prepare

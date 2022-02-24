@@ -1,0 +1,26 @@
+doctrine:
+  dbal:
+    # IMPORTANT: You MUST configure your server version,
+    # either here or in the DATABASE_URL env var (see .env file)
+
+    driver: 'pdo_pgsql'
+    server_version: '13.3'
+    charset: utf8
+    default_table_options:
+      charset: utf8
+      collate: ~
+    url: '%env(resolve:DATABASE_URL)%'
+    # schema_filter: '~^(?!work_projects_tasks_seq)~' # сущности секвенций с автоинкрементными id
+    #types:
+    #  user__id: 'App\Model\User\Entity\User\IdType'
+  orm:
+    auto_generate_proxy_classes: true
+    naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
+    auto_mapping: true
+    mappings:
+      Redaction:
+        is_bundle: false
+        type: attribute
+        dir: '%kernel.project_dir%/src/Model/Redaction/Entity'
+        prefix: 'App\Model\Redaction\Entity'
+        alias: Redaction
