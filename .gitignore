@@ -1,0 +1,5 @@
+/.idea
+/.env
+/xxx
+/composer
+.phpunit.result.cache
