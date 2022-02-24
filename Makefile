@@ -1,4 +1,4 @@
-_APP_PATH=manager
+_APP_PATH=app
 _PERM_USER=$$USER
 _SUDO=sudo
 
@@ -35,7 +35,7 @@ composer-dump-autoload:
 	sudo docker-compose run --rm php-cli composer dump-autoload
 
 clear:
-	docker run --rm -v ${PWD}/manager:/app --workdir=/app alpine rm -f .ready
+	docker run --rm -v ${PWD}/app:/app --workdir=/app alpine rm -f .ready
 
 composer-install:
 	sudo docker-compose run --rm php-cli composer install
@@ -50,7 +50,7 @@ fixtures:
 	docker-compose run --rm php-cli php bin/console doctrine:fixtures:load --no-interaction
 
 ready:
-	docker run --rm -v ${PWD}/manager:/app --workdir=/app alpine touch .ready
+	docker run --rm -v ${PWD}/app:/app --workdir=/app alpine touch .ready
 
 migrations-status:
 	docker-compose run --rm php-cli php bin/console doctrine:migrations:status
