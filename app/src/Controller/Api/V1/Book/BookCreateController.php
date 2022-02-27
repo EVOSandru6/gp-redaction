@@ -25,7 +25,8 @@ class BookCreateController extends Controller
 
         $cb = function () use ($data) {
             $command = new Command(
-                name: $data['name']
+                name: $data['name'],
+                authorName: $data['author_name'],
             );
 
             $this->bookCreateHandler->handle($command);

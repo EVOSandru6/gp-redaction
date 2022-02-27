@@ -24,10 +24,15 @@ class AuthorRepository
 
     public function get(int $id): Author
     {
-        if (!$recipient = $this->repo->find($id)) {
+        if (!$author = $this->repo->find($id)) {
             throw new EntityNotFoundException('Author is not found.');
         }
-        return $recipient;
+        return $author;
+    }
+
+    public function findByName(string $name): ?Author
+    {
+        return $this->repo->findOneBy(['name' => $name]);
     }
 
     public function add(Author $author): void
@@ -46,6 +51,15 @@ class AuthorRepository
                 ->select('COUNT(t.id)')
                 ->andWhere('t.id = :id')
                 ->setParameter(':id', $id)
+                ->getQuery()->getSingleScalarResult() > 0;
+    }
+
+    public function hasByName(string $name): bool
+    {
+        return $this->repo->createQueryBuilder('t')
+                ->select('COUNT(t.id)')
+                ->andWhere('t.name = :name')
+                ->setParameter(':name', $name)
                 ->getQuery()->getSingleScalarResult() > 0;
     }
 }

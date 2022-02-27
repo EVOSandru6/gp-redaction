@@ -24,10 +24,10 @@ class BookRepository
 
     public function get(int $id): Book
     {
-        if (!$recipient = $this->repo->find($id)) {
+        if (!$book = $this->repo->find($id)) {
             throw new EntityNotFoundException('Book is not found.');
         }
-        return $recipient;
+        return $book;
     }
 
     public function add(Book $book): void
