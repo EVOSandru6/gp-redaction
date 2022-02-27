@@ -18,10 +18,7 @@ class Book
     private int $id;
 
     /* @var Collection|Author[] $authors */
-    #[ORM\ManyToMany(targetEntity: Author::class, inversedBy: "authors")]
-    #[ORM\JoinTable(name: "author_book")]
-    #[ORM\JoinColumn(name: "author_id", referencedColumnName: "id")]
-    #[ORM\InverseJoinColumn(name: "book_id", referencedColumnName: "id")]
+    #[ORM\ManyToMany(targetEntity: Author::class, inversedBy: "books")]
     private Collection|array $authors;
 
     #[Pure] public function __construct(
