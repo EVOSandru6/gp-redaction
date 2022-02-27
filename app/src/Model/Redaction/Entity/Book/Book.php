@@ -21,12 +21,19 @@ class Book
     #[ORM\ManyToMany(targetEntity: Author::class, inversedBy: "books")]
     private Collection|array $authors;
 
-    #[Pure] public function __construct(
+    #[Pure] private function __construct(
         #[ORM\Column(name: "name", type: "string")]
         private string $name
     )
     {
         $this->authors = new ArrayCollection();
+    }
+
+    public static function create(string $name, Author $author): static
+    {
+        $book = new static($name);
+        $book->addAuthor($author);
+        return $book;
     }
 
     public function getId(): int

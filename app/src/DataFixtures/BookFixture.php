@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Model\Redaction\Entity\Author\Author;
 use App\Model\Redaction\Entity\Book\Book;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -14,10 +15,8 @@ class BookFixture extends Fixture
         $generator = Factory::create("ru_RU");
 
         for ($i = 0; $i < 10_000; $i++) {
-            $book = new Book(
-                name: $generator->title
-            );
-
+            $author = new Author(name: $generator->name);
+            $book = Book::create(name: $generator->title, author: $author);
             $manager->persist($book);
         }
 
