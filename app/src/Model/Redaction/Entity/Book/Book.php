@@ -18,7 +18,7 @@ class Book
     private int $id;
 
     /* @var Collection|Author[] $authors */
-    #[ORM\ManyToMany(targetEntity: Author::class, inversedBy: "books")]
+    #[ORM\ManyToMany(targetEntity: Author::class, inversedBy: "books", cascade: ["persist"])]
     private Collection|array $authors;
 
     #[Pure] private function __construct(

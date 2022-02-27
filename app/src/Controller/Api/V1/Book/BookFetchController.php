@@ -22,7 +22,7 @@ class BookFetchController extends Controller
     {
     }
 
-    #[Route('/' , methods: ['get'])]
+    #[Route('' , methods: ['get'])]
     public function execute(Request $request): JsonResponse
     {
         $cb = function () {
