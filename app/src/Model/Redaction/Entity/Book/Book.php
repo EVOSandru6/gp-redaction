@@ -1,10 +1,12 @@
 <?php
 
-namespace Model\Redaction\Entity\Book;
+namespace App\Model\Redaction\Entity\Book;
 
+use App\Model\Redaction\Entity\Author\Author;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Model\Redaction\Entity\Author\Author;
+use JetBrains\PhpStorm\Pure;
 
 #[ORM\Entity]
 #[ORM\Table(name: "books")]
@@ -18,13 +20,16 @@ class Book
     /* @var Collection|Author[] $authors */
     #[ORM\ManyToMany(targetEntity: Author::class, inversedBy: "authors")]
     #[ORM\JoinTable(name: "author_book")]
+    #[ORM\JoinColumn(name: "author_id", referencedColumnName: "id")]
+    #[ORM\InverseJoinColumn(name: "book_id", referencedColumnName: "id")]
     private Collection|array $authors;
 
-    public function __construct(
+    #[Pure] public function __construct(
         #[ORM\Column(name: "name", type: "string")]
         private string $name
     )
     {
+        $this->authors = new ArrayCollection();
     }
 
     public function getId(): int

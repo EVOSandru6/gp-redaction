@@ -1,6 +1,6 @@
 <?php
 
-namespace Model\Redaction\Entity\Author;
+namespace App\Model\Redaction\Entity\Author;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityNotFoundException;

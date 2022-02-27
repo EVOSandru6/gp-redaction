@@ -1,6 +1,6 @@
 _APP_PATH=app
 _PERM_USER=$$USER
-_SUDO=sudo
+_SUDO=
 
 up: docker-up
 down: docker-down
@@ -14,31 +14,31 @@ clear-cache:
 	docker-compose run --rm php-cli php bin/console cache:clear
 
 docker-up:
-	sudo docker-compose up -d
+	docker-compose up -d
 
 docker-down:
-	sudo docker-compose down --remove-orphans
+	docker-compose down --remove-orphans
 
 # удаление только системных томов
 docker-down-clear:
-	sudo docker-compose down -v --remove-orphans
+	docker-compose down -v --remove-orphans
 
 docker-pull:
-	sudo docker-compose pull
+	docker-compose pull
 
 docker-build:
-	sudo docker-compose build
+	docker-compose build
 
 init: composer-install composer-dump-autoload wait-db migrations-migrate fixtures ready
 
 composer-dump-autoload:
-	sudo docker-compose run --rm php-cli composer dump-autoload
+	docker-compose run --rm php-cli composer dump-autoload
 
 clear:
 	docker run --rm -v ${PWD}/app:/app --workdir=/app alpine rm -f .ready
 
 composer-install:
-	sudo docker-compose run --rm php-cli composer install
+	docker-compose run --rm php-cli composer install
 
 wait-db:
 	until docker-compose exec -T postgres pg_isready --timeout=0 --dbname=app ; do sleep 1 ; done

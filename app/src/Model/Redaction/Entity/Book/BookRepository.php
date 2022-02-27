@@ -1,6 +1,6 @@
 <?php
 
-namespace Model\Redaction\Entity\Book;
+namespace App\Model\Redaction\Entity\Book;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityNotFoundException;
