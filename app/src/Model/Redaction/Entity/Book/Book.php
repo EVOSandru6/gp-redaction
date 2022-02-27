@@ -43,4 +43,9 @@ class Book
     {
         return $this->authors;
     }
+
+    public function addAuthor(Author $author)
+    {
+        $this->authors->add($author);
+    }
 }
