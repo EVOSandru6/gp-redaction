@@ -11,8 +11,8 @@ use App\Model\Redaction\Entity\Book\BookRepository;
 class Handler
 {
     public function __construct(
-        private Flusher $flusher,
-        private BookRepository $bookRepository,
+        private Flusher          $flusher,
+        private BookRepository   $bookRepository,
         private AuthorRepository $authorRepository,
     )
     {

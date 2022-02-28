@@ -24,7 +24,7 @@ class BookSearchController extends Controller
     public function execute(Request $request): JsonResponse
     {
         $cb = function () use ($request) {
-             $books = $this->bookRepository->findByName($request->query->get('q'));
+            $books = $this->bookRepository->findByName($request->query->get('q'));
 
             return [
                 'books' => (new ArrayCollection($books))->map(fn(Book $book) => new BookDto(

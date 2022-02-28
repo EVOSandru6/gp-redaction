@@ -18,7 +18,7 @@ class AuthorCreateController extends Controller
     {
     }
 
-    #[Route('' , methods: ['post'])]
+    #[Route('', methods: ['post'])]
     public function execute(Request $request): JsonResponse
     {
         $data = json_decode($request->getContent(), true);

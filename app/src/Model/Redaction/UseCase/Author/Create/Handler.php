@@ -9,7 +9,7 @@ use App\Model\Redaction\Entity\Author\AuthorRepository;
 class Handler
 {
     public function __construct(
-        private Flusher $flusher,
+        private Flusher          $flusher,
         private AuthorRepository $repository,
     )
     {

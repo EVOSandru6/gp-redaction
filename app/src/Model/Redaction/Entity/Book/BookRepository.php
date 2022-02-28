@@ -2,7 +2,6 @@
 
 namespace App\Model\Redaction\Entity\Book;
 
-use App\Model\Redaction\Entity\Author\Author;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityNotFoundException;
 use Doctrine\ORM\EntityRepository;
