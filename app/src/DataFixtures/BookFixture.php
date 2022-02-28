@@ -14,10 +14,9 @@ class BookFixture extends Fixture
     {
         $generator = Factory::create("ru_RU");
 
-        for ($i = 0; $i < 1; $i++) {
-//        for ($i = 0; $i < 10_000; $i++) {
+        for ($i = 0; $i < 10_000; $i++) {
             $author = new Author(name: $generator->name);
-            $book = Book::create(name: $generator->title, author: $author);
+            $book = Book::create(name: "$generator->title|$generator->title", author: $author);
             $manager->persist($book);
         }
 

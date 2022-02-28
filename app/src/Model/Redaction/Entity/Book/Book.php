@@ -55,4 +55,15 @@ class Book
     {
         $this->authors->add($author);
     }
+
+    public function getNameByLang(string $locale): string
+    {
+        $nameWithSeparated = explode('|', $this->getName());
+
+        return match ($locale) {
+            'en' => $nameWithSeparated[0],
+            'ru' => $nameWithSeparated[1],
+            default => throw new \DomainException('Name localization not defined')
+        };
+    }
 }

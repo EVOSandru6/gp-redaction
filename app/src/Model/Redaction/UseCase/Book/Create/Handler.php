@@ -18,7 +18,7 @@ class Handler
     {
     }
 
-    public function handle(Command $command)
+    public function handle(Command $command): Book
     {
         $author = $this->authorRepository->findByName($command->authorName) ??
             new Author(name: $command->authorName);
@@ -31,5 +31,7 @@ class Handler
         $this->bookRepository->add($book);
 
         $this->flusher->flush();
+
+        return $book;
     }
 }
