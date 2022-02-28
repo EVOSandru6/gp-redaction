@@ -1,6 +1,6 @@
 # README
 
-## 0. Prepare Packages
+## 1. Prepare Packages
 
 ```
 sudo apt-get update && apt-get upgrade -y;
@@ -8,7 +8,7 @@ sudo apt install -y curl git;
 sudo apt-get install -y build-essential software-properties-common;
 ```
 
-## 1. Install Docker
+## 2. Install Docker
 
 ```
 sudo apt-get remove -y docker docker-engine docker.io containerd runc;
@@ -69,17 +69,22 @@ sudo reboot;
 ```
 
 
-## 2. Start make script 
+## 3. Start make script 
 ```
 make restart
 ```
 
-## 3. cp .env.example to .env
+## 4. cp .env.example to .env
 ```
 cp .env.example .env
 ```
 
-## 4. test
+## 5. Restart docker, install packages, load fixtures  
+```
+make init
+```
+
+## 6. test execute
 ```
 make test
 ```
