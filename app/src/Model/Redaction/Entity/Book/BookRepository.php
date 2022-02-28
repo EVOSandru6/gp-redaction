@@ -2,6 +2,7 @@
 
 namespace App\Model\Redaction\Entity\Book;
 
+use App\Model\Redaction\Entity\Author\Author;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityNotFoundException;
 use Doctrine\ORM\EntityRepository;
@@ -28,6 +29,15 @@ class BookRepository
             throw new EntityNotFoundException('Book is not found.');
         }
         return $book;
+    }
+
+    public function findByName(string $name): array
+    {
+        return $this->repo->createQueryBuilder('o')
+            ->where('o.name LIKE :name')
+            ->setParameter('name', "%$name%")
+            ->getQuery()
+            ->getResult();
     }
 
     public function add(Book $book): void

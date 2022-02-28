@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Tests\Functional\Book;
+namespace App\Tests\Functional\Api\Book;
 
 use App\Model\Redaction\Entity\Author\Author;
 use App\Model\Redaction\Entity\Book\Book;
 use App\Tests\Functional\DbWebTestCase;
+use function dump;
 
 class BookPersistTest extends DbWebTestCase
 {
@@ -20,6 +21,15 @@ class BookPersistTest extends DbWebTestCase
             'author_name' => 'Лев Толстой'
         ];
 
+        $this->persist($data);
+
+        $query = 'мир';
+
+        $this->fetch($query);
+    }
+
+    private function persist(array $data)
+    {
         $booksQtyBefore = $this->em->getRepository(Book::class)->findAll();
         $authorsQtyBefore = $this->em->getRepository(Author::class)->findAll();
 
@@ -29,19 +39,38 @@ class BookPersistTest extends DbWebTestCase
         ]));
 
         $response = $this->client->getResponse();
-        $content = $response->getContent();
+        $jsonContent = $response->getContent();
 
         if ($response->getStatusCode() !== 200) {
-            dump('book_warning: ' . $content);
+            dump('book_warning: ' . $jsonContent);
         }
 
         self::assertEquals(200, $response->getStatusCode());
-        self::assertJson($content);
+        self::assertJson($jsonContent);
 
         $booksQtyAfter = $this->em->getRepository(Book::class)->findAll();
         $authorsQtyAfter = $this->em->getRepository(Author::class)->findAll();
 
         self::assertGreaterThan(count($booksQtyBefore), count($booksQtyAfter));
         self::assertGreaterThan(count($authorsQtyBefore), count($authorsQtyAfter));
+    }
+
+    private function fetch(string $q)
+    {
+        $this->client->request(method: 'get', uri: self::API_PREFIX . "/books/search?q=$q");
+
+        $response = $this->client->getResponse();
+        $jsonContent = $response->getContent();
+
+        if ($response->getStatusCode() !== 200) {
+            dump('book_warning: ' . $jsonContent);
+        }
+
+        self::assertEquals(200, $response->getStatusCode());
+        self::assertJson($jsonContent);
+
+        $objContent = json_decode($jsonContent);
+
+        self::assertGreaterThan(0, count($objContent->data->books));
     }
 }
